@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    {{ include('_flash.html.twig') }}
+    
+    <form method="POST" action="/login" id="login-form">
+        <input class="form-control" type="text" name="username" placeholder="Username">
+        <input class="form-control" type="password" name="password" placeholder="Password">
+        <button class="btn btn-block btn-primary" type="submit">Login</button>
+    </form>
+</form>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block title %}News{% endblock %}
+
+{% block body %}
+    {{ include('_flash.html.twig') }}
+    
+    {% if news is not empty %}
+        <div class="news-block-container">
+            <h2 class="news-block-header">All News</h2>
+            {% for newsItem in news %}
+                <div class="news-item">
+                    <div class="title">
+                        {{ newsItem.title }}
+                    </div>
+                    <div class="description">
+                        {{ newsItem.description }}
+                    </div>
+                    <div class="actions">
+                        <button type="button" class="action-btn" data-action="edit-news-item" data-news-item-id="{{ newsItem.id }}">
+                            <span class="btn-action-edit" data-news-item-id="{{ newsItem.id }}"></span>
+                        </button>
+                        <form action="/news/delete" method="POST" id="delete-news-form">
+                            <input type="hidden" name="id" value="{{ newsItem.id }}">
+                            <button type="submit" class="action-btn">
+                                <span class="btn-action-close"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    
+    <div class="news-block-container">
+        <h2 class="news-block-header">
+            <span id="news-header">Create News</span>
+            <span class="close-btn" style="display: none;">
+                <img src="/images/close.svg" alt="close">
+            </span>
+        </h2>
+        <form action="/news/create" method="POST" id="create-news-form">
+            <input class="form-control" type="text" placeholder="Title" name="title" id="title">
+            <textarea class="form-control" name="description" placeholder="Description" rows="10" id="description"></textarea>
+            <input type="hidden" name="id" id="id" value="0">
+            <button class="btn btn-primary" id="create-news-btn">Create</button><br>
+            <a class="btn btn-primary" href="/logout" role="button">Logout</a>
+        </form>
+    </div>
+{% endblock %}
+{% block script %}
+    <script>
+        // Edit news.
+        $('[data-action="edit-news-item"]').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            let newsItemId = $(e.target).attr('data-news-item-id');
+            let title = $(e.target).closest('.news-item').find('.title').html().trim();
+            let description = $(e.target).closest('.news-item').find('.description').html().trim();
+            
+            $('.close-btn').show();
+            $('#title').val(title);
+            $('#description').val(description);
+            $('#create-news-btn').html('Save');
+            $('#news-header').html('Edit News');
+            $('#id').val(newsItemId);
+        });
+        
+        // Cancel news edition.
+        $('.close-btn').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            $('#title, #description').val('');
+            $('#description').val('');
+            $('#create-news-btn').html('Create');
+            $('#news-header').html('Create News');
+            $('#id').val(0);
+        });
+    </script>
+{% endblock %}

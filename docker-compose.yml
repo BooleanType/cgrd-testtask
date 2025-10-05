@@ -1,0 +1,43 @@
+services:
+  php:
+    container_name: cgrd_php
+    volumes:
+      - ./:/var/www/html
+    build:
+      dockerfile: ./docker/php/Dockerfile
+      context: .
+    ports:
+      - '3033:80'
+    restart: always
+    environment:
+      - TZ=Europe/Berlin
+    networks:
+      - cgrd
+  db:
+    image: mysql
+    container_name: cgrd_mysql
+    volumes:
+      - cgrd-mysql-data:/var/lib/mysql
+      - ./docker/db:/docker-entrypoint-initdb.d/:ro
+    environment: 
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: cgrd
+    networks:
+      - cgrd
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8081:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - cgrd
+
+      
+volumes:
+  cgrd-mysql-data:
+  
+networks:
+  cgrd:
+    name: cgrd
