@@ -24,7 +24,7 @@ A simple PHP application for managing news items with user authentication.
 
    ```bash
    git clone https://github.com/BooleanType/cgrd-testtask.git
-   cd news-manager
+   cd cgrd-testtask
    ```
 
 2. Build the project.
@@ -35,4 +35,4 @@ A simple PHP application for managing news items with user authentication.
 
 3. Open `http://localhost:3033` in your browser.
 
-4. You can also open phpMyAdmin page ( http://localhost:8081 ). Server is `db`, username is `root` and password is `secret`.
+4. You can also open phpMyAdmin page ( http://localhost:8085 ). Server is `db`, username is `root` and password is `secret`.

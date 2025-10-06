@@ -38,3 +38,8 @@ COPY ./composer.json ./composer.lock ./
 RUN composer install --prefer-dist --no-scripts --no-progress --no-dev --optimize-autoloader
 COPY . .
 RUN composer dump-autoload --optimize
+
+COPY ./docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
