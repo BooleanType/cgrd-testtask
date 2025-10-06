@@ -26,6 +26,7 @@ services:
       - cgrd
   phpmyadmin:
     image: phpmyadmin
+    container_name: cgrd_phpmyadmin
     restart: always
     ports:
       - 8085:80
