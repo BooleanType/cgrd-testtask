@@ -23,7 +23,7 @@ A simple PHP application for managing news items with user authentication.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/boolean-type/cgrd-testtask.git
+   git clone https://github.com/BooleanType/cgrd-testtask.git
    cd news-manager
    ```
 
